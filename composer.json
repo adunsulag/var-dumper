@@ -1,5 +1,8 @@
 {
-    "name": "symfony/var-dumper",
+    "name": "adunsulag/var-dumper",
+    "replace": {
+       "symfony/var-dumper": "3.4"
+    },
     "type": "library",
     "description": "Symfony mechanism for exploring and dumping PHP variables",
     "keywords": ["dump", "debug"],
