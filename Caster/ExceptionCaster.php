@@ -14,6 +14,7 @@ namespace Symfony\Component\VarDumper\Caster;
 use Symfony\Component\Debug\Exception\SilencedErrorContext;
 use Symfony\Component\VarDumper\Cloner\Stub;
 use Symfony\Component\VarDumper\Exception\ThrowingCasterException;
+use \ReflectionClass;
 
 /**
  * Casts common Exception classes to array representation.
@@ -211,7 +212,7 @@ class ExceptionCaster
                 $ellipsis = isset($ellipsis->attr['ellipsis']) ? $ellipsis->attr['ellipsis'] : 0;
 
                 if (file_exists($f['file']) && 0 <= self::$srcContext) {
-                    if (!empty($f['class']) && (is_subclass_of($f['class'], 'Twig\Template') || is_subclass_of($f['class'], 'Twig_Template')) && method_exists($f['class'], 'getDebugInfo')) {
+                    if (!empty($f['class']) && (is_subclass_of($f['class'], 'Twig\Template') || is_subclass_of($f['class'], 'Twig_Template')) && method_exists($f['class'], 'getDebugInfo') && (new ReflectionClass($f['class']))->isInstantiable()) {
                         $template = isset($f['object']) ? $f['object'] : unserialize(sprintf('O:%d:"%s":0:{}', \strlen($f['class']), $f['class']));
 
                         $ellipsis = 0;
